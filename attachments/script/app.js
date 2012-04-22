@@ -1,4 +1,4 @@
-var app = {cache:{}, profile: {}, baseURL: 'http://localhost:8000', eventCache: couchie('events')}
+var app = {cache:{}, profile: {}, baseURL: 'http://portlandsmells.com', eventCache: couchie('events')}
 app.retina = window.devicePixelRatio > 1 ? true : false
 var events = require('events')
 app.emitter = new events.EventEmitter
