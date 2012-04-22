@@ -48,7 +48,7 @@
 ----------------------------------------- */
 
 .crosshair {position: absolute; top: 120px; left: 0px;}
-.left, .right, .top, .bottom {position: relative; background-color: #000; float: left;}
+.left, .right, .top, .bottom {position: relative; background-color: #87892D; float: left;}
 .left, .right {height: 10px; width: 60px;}
 .top, .bottom {height: 60px; width: 10px;}
 .top    {top: 0px; left: 155px;}
@@ -60,6 +60,12 @@
    Specific Styles
 ----------------------------------------- */
 
+.buttons { float: right; }
+.nav-button { font-size: 13.5px; background: #e5e5e5; color: #959595; float: left; line-height: 47px; height: 49px; text-align: center; }
+.nav-button.round { background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fefefe), to(#e6e6e6)); position: relative; margin: 5px; font-size: 13.58px; text-shadow: 0 1px 0 white; color: #363636; line-height: 39px; height: 39px; border-radius: 3px; box-shadow: 0px 0px 1px rgba(0,0,0,1); z-index: 1}
+.nav-button.round .label { margin: 0 10px; }
+
+
 body { font-family: Open Sans; background: black; }
 .container { overflow-x: hidden; overflow-y: scroll; }
 .ui-content.hidden { bottom: 0px !important; }
@@ -67,9 +73,17 @@ body { font-family: Open Sans; background: black; }
 .welcome { position: absolute; top: 0px; height: 50px; right: 0px; left: 0px; background: white; box-shadow: rgba(0,0,0,0.2) 0px 0px 50px inset; overflow: auto;}
 
 
-#mapbox {
+#content {
   position: absolute;
   top: 50px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+#mapbox {
+  position: absolute;
+  top: 0px;
   bottom: 0px;
   left: 0px;
   right: 0px;
@@ -81,3 +95,12 @@ body { font-family: Open Sans; background: black; }
   border-radius: 999px;
   background: purple;
 }
+
+.inputContainer { padding-right: 52px; padding-left: 1px; margin-right: 2px; }
+input[type="text"], .ui-content input[type="datetime"] { width: 100%; padding: 0px 4px 0 47px; color: #363636; background-repeat: no-repeat; font-size: 18.11px; font-weight: normal; }
+input { display: block; height: 38px; border: 1px solid #c7c7c7; border-radius: 3px; }
+input[type="text"]:focus, .ui-content input[type="datetime"]:focus { background-color: #fffbcd; }
+input::-webkit-input-placeholder { opacity: .8; }
+
+input, textarea { width: 90%; margin: 10px 5px;}
+textarea { height: 100px; }

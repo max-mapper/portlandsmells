@@ -129,6 +129,30 @@ var util = function() {
     return toBrng(Math.atan2(y, x));
   }
   
+  function turnOffClick(elems) {
+    _.each(elems, function(el) {
+      $(el).live('click', function(e) {
+        e.preventDefault()
+        return false
+      })
+    })
+  }
+  
+  function listenForTouches() {
+    if (Modernizr.touch) {
+      turnOffClick(['a', 'input'])
+      
+      $('a').live('tap', function(e) {
+        util.catchModals(e)
+      })
+      
+    } else {
+      $('a').live('click', function(e) {
+        util.catchModals(e)
+      })
+    }
+  }
+  
   return {
     getParameterByName: getParameterByName,
     render: render,
@@ -138,6 +162,8 @@ var util = function() {
     getLocationContext: getLocationContext,
     getPosition: getPosition,
     getBearing: getBearing,
-    switchNav: switchNav
+    switchNav: switchNav,
+    turnOffClick: turnOffClick,
+    listenForTouches: listenForTouches
   };
 }();

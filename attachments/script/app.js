@@ -1,4 +1,4 @@
-var app = {cache:{}, profile: {}, baseURL: 'http://portlandsmells.com', eventCache: couchie('events')}
+var app = {cache:{}, profile: {}, baseURL: 'http://localhost:8000', eventCache: couchie('events')}
 app.retina = window.devicePixelRatio > 1 ? true : false
 var events = require('events')
 app.emitter = new events.EventEmitter
@@ -12,20 +12,30 @@ app.emitter = new events.EventEmitter
 app.routes = {
   pages: {
     welcome: function() {
-      util.render('welcome', '.container')
+      util.render('map', '#content')
+      util.render('mapButtons', '.buttons')
       showMap()
       var portlandCenter = new L.LatLng(45.526674856483375, -122.67127990722656)
       app.map.setView(portlandCenter, 12)
       locateAndSetMap()
+      util.render('crosshair', '#crosshair')
       
-      // $('.crosshair').css('left', (document.body.clientWidth - 320) / 2);
+      $('.crosshair').css('left', (document.body.clientWidth - 320) / 2);
+      $('.crosshair').css('top', ($('#mapbox').height() / 2) - 90)
       
-      // showEventOnMap(ev)
+    },
+    details: function() {
+      util.render('details', '#content')
+      util.render('detailButtons', '.buttons')
     }
   },
   modals: {
     back: function() {
       window.history.back()
+    },
+    map: function() {
+      app.selectedPoint = app.map.getCenter()
+      redirect('#/details')
     },
     submit: function() {
       $('form').first().submit()
@@ -37,6 +47,22 @@ app.after = {
   welcome: function() {
     util.getPosition(function(err, position) {
       if (err) console.log('gps error: '+ err)
+      loadSmells(position.coords.latitude, position.coords.longitude, function(err, smells) {
+        showEventsOnMap(smells.rows)
+      })
+    })
+  },
+  details: function() {
+    var form = $('form').first()
+    form.submit(function(e) {
+      $('.buttons a').hide()
+      e.preventDefault()
+      var data = _.extend({}, form.serializeObject(), app.selectedPoint || {})
+      data.geometry = {type: "Point", coordinates: [data.lng, data.lat]}
+      request({url: app.baseURL + '/api/v1/update', json: data, method: "POST"}, function(err, resp, json) {
+        redirect('#/')
+      })
+      return false
     })
   }
 }
@@ -55,22 +81,24 @@ function showMap(container) {
   app.map.addLayer(layer)
 }
 
+function loadSmells(lat, lon, callback) {
+   request({url: app.baseURL + '/api/v1/nearby?lat=' + lat + '&lon=' + lon, json: true}, function(err, resp, json) {
+     callback(err, json)
+   })
+}
+
 function showEventOnMap(ev) {
-  var markerLocation = new L.LatLng(ev.location.location.lat, ev.location.location.lng)
+  var markerLocation = new L.LatLng(ev.geometry.coordinates[1], ev.geometry.coordinates[0])
   
   var marker = new L.Marker(markerLocation)
-  
-  ev = formatEvents([ev])[0]
-  marker.bindPopup(util.buildTemplate('mapMarker', ev), {closeButton: false})
+  marker.bindPopup(ev.value.title + '<br/>' + ev.value.description, {closeButton: false})
   app.map.addLayer(marker)
 }
 
-function showEventsOnMap(map) {
-  app.eventCache.all(function(err, cachedEvents) {
-    _.each(cachedEvents, function(ev) {
-      if (!ev.location) return
-      showEventOnMap(ev)
-    })
+function showEventsOnMap(events, map) {
+  _.each(events, function(ev) {
+    if (!ev.geometry) return
+    showEventOnMap(ev)
   })
 }
 
@@ -87,18 +115,18 @@ function redirect(uri) {
   window.location.href = uri
 }
 
-function loadDefaultUI() {
-  util.render('main', '.container')
-}
-
 $(document).ready(function() {
+  util.listenForTouches()
   
   app.router = Router({
     '/': { on: function() {
+      util.render('welcome', '.container')
+      
       redirect("#/welcome")
     } },
     '/:page': { on: function(page) {
-      loadDefaultUI()
+      util.render('welcome', '.container')
+      
       util.switchNav(page);
       app.routes.pages[page]()
     } }
