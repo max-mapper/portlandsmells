@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  
+  <title>Portland Smells</title>
+  
+  <link rel="stylesheet" href="stylesheets/globals.css">
+  <link rel="stylesheet" href="stylesheets/typography.css">
+  <link rel="stylesheet" href="stylesheets/app.css">
+  <link rel="stylesheet" href="stylesheets/leaflet.css">
+
+</head>
+<body>
+  <div class="container"></div>
+  
+  <script type='text/mustache' class="mainTemplate">
+    <div class="ui-content"></div>
+  </script>
+  
+  <script type='text/mustache' class="welcomeTemplate">
+    <div class="welcome-container">
+      <div class="welcome">
+        <div class="titleContainer">
+          <div class="title">PORTLAND</div>
+          <div class="beta">SMELLS</div>
+        </div>
+      </div>
+      <div id="mapbox"></div>
+    </div>
+  </script>
+  
+  <script type='text/mustache' class="crosshairTemplate">
+    <div class="crosshair">
+      <div class="top">
+      </div>
+      <div class="right">
+      </div>
+      <div class="left">
+      </div>
+      <div class="bottom">
+      </div>
+    </div>
+  </script>
+
+  <script type='text/mustache' class="locationResultsTemplate">
+    {{#results}}
+      <li data-location-id="{{id}}"><a><div class="name">{{name}}</div><div class="address">{{context}}</div><div class="right sprite triangle-orange"></div></a></li>
+    {{/results}}
+  </script>
+  
+  <script type='text/mustache' class="startTemplate">
+    <div class="{{classes}}">
+      <div class="messages"></div>
+      <form>
+      
+        <div class="mainArea">
+          <div class='inputContainer'>
+            <input type="text" name="title" class="icon-what-off sprite" id="what" value="" placeholder="What?">
+          </div>
+        </div>
+        
+        <div class="secondaryArea">
+          <span>optional details</span>
+        
+          <div class='inputContainer'>
+            <input type="datetime" name="start" class="icon-when-off sprite" id="when" placeholder="When?">
+          </div>
+          
+          <div class='inputContainer rightArrow'>
+            <input type="text" name="where" class="icon-where-off sprite" id="where" value="" placeholder="Where?">
+            <div class="sprite triangle-orange"></div>
+          </div>
+        </div>
+        <div class="tertiaryArea">
+          
+        </div>
+        
+      </form>
+    </div>
+  </script>
+  
+  <script type='text/mustache' class="locationPickerTemplate">
+    <div class="locationPicker {{direction}}">
+      <div class="mainArea">
+        <div class='inputContainer'>
+          <form>
+            <input type="text" name="where" class="icon-where-off sprite" id="where" value="" placeholder="Where is it happening?">
+            <div class="spinner hidden"></div>
+          </form>
+        </div>
+      </div>
+      <div class="places-list-container">
+        <ul class="places-list">
+          <div class="defaultMessage"></div>
+        </ul>
+      </div>
+    </div>
+  </script>
+    
+  <script src="script/request.js"></script>
+  <script src="script/deps-min.js"></script>
+  
+  <script src="script/util.js"></script>
+  <script src="script/app.js"></script>
+  
+  <!-- FOR DEBUGGING TOUCH EVENTS IN NORMAL BROWSERS  -->
+  <!-- <script src="script/phantomlimb.js"></script> -->
+  
+</body>
+</html>

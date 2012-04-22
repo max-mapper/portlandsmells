@@ -1,0 +1,83 @@
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/montserrat.woff') format('woff');
+}
+@font-face {
+  font-family: 'Open Sans Italic';
+  font-style: italic;
+  font-weight: 400;
+  src: url('fonts/OpenSans-Italic.ttf');
+}
+@font-face {
+  font-family: 'Open Sans Light Italic';
+  font-style: italic;
+  font-weight: 300;
+  src: url('fonts/OpenSans-LightItalic.ttf');
+}
+@font-face {
+  font-family: 'Open Sans Light';
+  font-style: normal;
+  font-weight: 300;
+  src: url('fonts/OpenSans-Light.ttf');
+}
+@font-face {
+  font-family: 'Open Sans Bold Italic';
+  font-style: italic;
+  font-weight: 700;
+  src: url('fonts/OpenSans-BoldItalic.ttf');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  src: url('fonts/OpenSans-Regular.ttf');
+}
+@font-face {
+  font-family: 'Open Sans Bold';
+  font-style: normal;
+  src: url('fonts/OpenSans-Bold.ttf');
+}
+
+/* Turn off iOS transparent gray tap highlights */
+
+* { -webkit-tap-highlight-color: rgba(0,0,0,0) }
+
+/* -----------------------------------------
+   Generic Styles
+----------------------------------------- */
+
+.crosshair {position: absolute; top: 120px; left: 0px;}
+.left, .right, .top, .bottom {position: relative; background-color: #000; float: left;}
+.left, .right {height: 10px; width: 60px;}
+.top, .bottom {height: 60px; width: 10px;}
+.top    {top: 0px; left: 155px;}
+.left   {top: 85px; left: 0px;}
+.right  {top: 85px; left: 180px;}
+.bottom {top: 120px; left: 25px;}
+
+/* -----------------------------------------
+   Specific Styles
+----------------------------------------- */
+
+body { font-family: Open Sans; background: black; }
+.container { overflow-x: hidden; overflow-y: scroll; }
+.ui-content.hidden { bottom: 0px !important; }
+.welcome-container { position: absolute; top: 0; bottom: 0; left: 0; right: 0; background: #a2c3a2; }
+.welcome { position: absolute; top: 0px; height: 50px; right: 0px; left: 0px; background: white; box-shadow: rgba(0,0,0,0.2) 0px 0px 50px inset; overflow: auto;}
+
+
+#mapbox {
+  position: absolute;
+  top: 50px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+#mapbox .point {
+  height: 2px;
+  width: 2px;
+  border-radius: 999px;
+  background: purple;
+}
