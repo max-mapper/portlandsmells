@@ -1,0 +1,29 @@
+{
+  "name": "portlandsmells",
+  "subdomain": "www",
+  "domains": [
+    "portlandsmells.com"
+  ],
+  "bundleDependencies": [
+    "async",
+    "filed",
+    "logref",
+    "request",
+    "morestreams",
+    "deep-extend",
+    "timeago",
+    "rewriter",
+    "routes",
+    "socket.io",
+    "stoopid",
+    "tako",
+    "underscore"
+  ],
+  "version": "0.0.1-13",
+  "scripts": {
+    "start": "run.js"
+  },
+  "engines": {
+    "node": "v0.6.x"
+  }
+}
